@@ -5,11 +5,12 @@ import hello.core.member.Member;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.context.annotation.Bean;
 
 import static org.assertj.core.api.Assertions.*;
 
 class RateDiscountPolishTest {
-    RateDiscountPolish discountPolish = new RateDiscountPolish();
+    DiscountPolicy discountPolish;
 
     @Test
     @DisplayName("VIP는 10% 할인이 적용되어야 한다.")
