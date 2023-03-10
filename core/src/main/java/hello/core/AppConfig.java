@@ -28,6 +28,7 @@ public class AppConfig {
         return new MemberServiceImpl(memberRepository());
     }
 
+    //test
     @Bean
     public OrderService orderService() {
         return new OrderServiceImpl(memberRepository(), discountPolicy());
