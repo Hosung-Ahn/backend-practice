@@ -5,12 +5,17 @@ import hello.core.member.Member;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Bean;
 
 import static org.assertj.core.api.Assertions.*;
 
+@SpringBootTest
 class RateDiscountPolishTest {
-    DiscountPolicy discountPolish;
+
+    @Autowired
+    DiscountPolicy discountPolicy;
 
     @Test
     @DisplayName("VIP는 10% 할인이 적용되어야 한다.")
@@ -18,7 +23,7 @@ class RateDiscountPolishTest {
         //give
         Member member = new Member(1l, "memberVIP", Grade.VIP);
         //when
-        int discount = discountPolish.discount(member, 10000);
+        int discount = discountPolicy.discount(member, 10000);
         //then
         assertThat(discount).isEqualTo(1000 );
     }
@@ -29,7 +34,7 @@ class RateDiscountPolishTest {
         //give
         Member member = new Member(1l, "memberVIP", Grade.BASIC);
         //when
-        int discount = discountPolish.discount(member, 10000);
+        int discount = discountPolicy.discount(member, 10000);
         //then
         assertThat(discount).isEqualTo(0 );
 

@@ -16,14 +16,17 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class AppConfig {
 
-    private static MemberRepository memberRepository() {
+    @Bean
+    public static MemberRepository memberRepository() {
         return new MemoryMemberRepository();
     }
 
-    private static DiscountPolicy discountPolicy() {
+    @Bean
+    public static DiscountPolicy discountPolicy() {
         return new FixDisCountPolicy();
     }
 
+    @Bean
     public MemberService memberService() {
         return new MemberServiceImpl(memberRepository());
     }
