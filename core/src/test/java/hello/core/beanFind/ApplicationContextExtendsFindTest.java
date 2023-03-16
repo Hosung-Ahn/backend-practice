@@ -2,8 +2,7 @@ package hello.core.beanFind;
 
 import hello.core.discount.DiscountPolicy;
 import hello.core.discount.FixDisCountPolicy;
-import hello.core.discount.RateDiscountPolish;
-import org.junit.jupiter.api.Assertions;
+import hello.core.discount.RateDiscountPolicy;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.NoUniqueBeanDefinitionException;
@@ -38,8 +37,8 @@ public class ApplicationContextExtendsFindTest {
     @Test
     @DisplayName("하위 타입으로 조회")
     void findBeanBySubType() {
-        RateDiscountPolish bean = ac.getBean(RateDiscountPolish.class);
-        assertThat(bean).isInstanceOf(RateDiscountPolish.class);
+        RateDiscountPolicy bean = ac.getBean(RateDiscountPolicy.class);
+        assertThat(bean).isInstanceOf(RateDiscountPolicy.class);
     }
 
     @Test
@@ -65,7 +64,7 @@ public class ApplicationContextExtendsFindTest {
     static class TestConfig {
         @Bean
         DiscountPolicy rateDiscountPolicy() {
-            return new RateDiscountPolish();
+            return new RateDiscountPolicy();
         }
 
         @Bean

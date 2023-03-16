@@ -20,7 +20,7 @@ public class AutoAppConfigTest {
         String[] beanDefinitionNames = ac.getBeanDefinitionNames();
         for (String beanDefinitionName : beanDefinitionNames) {
             System.out.println("beanDefinitionName = " + beanDefinitionName);
-            System.out.println("ac.getBean(beanDefinitionName) = " + ac.getBean(beanDefinitionName));
+//            System.out.println("ac.getBean(beanDefinitionName) = " + ac.getBean(beanDefinitionName));
         }
     }
 

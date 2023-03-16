@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Bean;
 import static org.assertj.core.api.Assertions.*;
 
 @SpringBootTest
-class RateDiscountPolishTest {
+class RateDiscountPolicyTest {
 
     @Autowired
     DiscountPolicy discountPolicy;
