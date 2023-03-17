@@ -35,7 +35,7 @@ public class NetworkClient  {
         call("초기화 연결 메세지");
     }
 
-    @PreDestroy
+
     public void close()  {
         System.out.println("NetworkClient close");
         disconnect();
