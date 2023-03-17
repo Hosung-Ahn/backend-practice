@@ -1,6 +1,7 @@
 package student;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Arrays;
 
 public class Student {
@@ -31,6 +32,6 @@ public class Student {
     public BigDecimal getAverageMarks() {
         int sum = getTotalSumOfMarks();
         int len = getNumberOfMarks();
-        return new BigDecimal(sum).divide(new BigDecimal(len));
+        return new BigDecimal(sum).divide(new BigDecimal(len), 2, RoundingMode.HALF_UP);
     }
 }
