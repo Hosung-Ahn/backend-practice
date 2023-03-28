@@ -28,7 +28,7 @@ public class MemberService {
     private void validateDuplicateMember(Member member) {
 //        2 클라이언트가 동시 db 에 접근하여 현재 함수를 호출하면 통과될 수 있기 때문에 완벽하지 않다.
         List<Member> membersByName = memberRepository.findByName(member.getName());
-        if (membersByName.isEmpty()) {
+        if (!membersByName.isEmpty()) {
             throw new IllegalStateException("이미 존재하는 회원입니다.");
         }
     }
