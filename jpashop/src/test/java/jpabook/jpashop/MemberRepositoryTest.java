@@ -1,5 +1,6 @@
 package jpabook.jpashop;
 
+import jpabook.jpashop.repository.MemberRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class MemberRepositoryTest {
-
     @Autowired
     MemberRepository memberRepository;
 
@@ -24,7 +24,7 @@ class MemberRepositoryTest {
         member.setUsername("memberA");
 
         // when
-        Long savedId = memberRepository.save(member);
+        Long savedId = memberRepository. save(member);
         Member findMember = memberRepository.find(savedId);
 
         // then
