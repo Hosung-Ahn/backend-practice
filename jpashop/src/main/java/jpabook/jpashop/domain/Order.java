@@ -1,6 +1,8 @@
 package jpabook.jpashop.domain;
 
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -11,6 +13,8 @@ import java.util.List;
 @Entity
 @Table(name = "orders")
 @Getter @Setter
+// public 생성자를 막아주는 역할
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Order {
 
     @Id @GeneratedValue
@@ -21,6 +25,7 @@ public class Order {
     @JoinColumn(name = "member_id")
     private Member member;
 
+    // order 가 persist 될 때 orderItems 와 delivery 도 persist 된다.
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderItem> orderItems = new ArrayList<>();
 
@@ -50,6 +55,7 @@ public class Order {
     }
 
     // 생성 메서드
+
     public static Order createOrder(Member member, Delivery delivery, OrderItem... orderItems) {
         Order order = new Order();
         order.setMember(member);
