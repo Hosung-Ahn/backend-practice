@@ -17,6 +17,8 @@ public class ItemRepository {
         if (item.getId() == null) {
             em.persist(item);
         } else {
+            // merge 는 준영속 상태의 엔티티를 영속 상태로 변경할 때 사용한다.
+            // item은 준영속 상태를 유지하고, merge로 반환되는 item은 영속 상태가 반환된다.
             em.merge(item);
         }
     }
