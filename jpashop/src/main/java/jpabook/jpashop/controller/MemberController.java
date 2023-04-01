@@ -42,4 +42,16 @@ public class MemberController {
         // 저장이 완료되면 홈으로 돌아간다.
         return "redirect:/";
     }
+
+    @GetMapping("/members")
+    public String list(Model model) {
+        // memberService.findMembers() 를 통해 member 를 가져온다.
+        // 가져온 member 를 model 에 담아서 view 에 전달한다.
+
+        // dto 를 통해 view 에 전달하는 것이 좋다. (view 에 entity 를 전달하는 것은 좋지 않다.)
+        // entity 를 view 에 전달하면 entity 가 변경되면 view 도 변경되어야 한다.
+        // api를 통해 전달할 때는 entity를 그대로 전달하면 안된다.
+        model.addAttribute("members", memberService.findMembers());
+        return "members/memberList";
+    }
 }
