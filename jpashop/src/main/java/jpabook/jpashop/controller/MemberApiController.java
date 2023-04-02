@@ -36,10 +36,11 @@ public class MemberApiController {
     public UpdateMemberResponse updateMemberV2(
             @PathVariable("id") Long id,
             @RequestBody @Valid UpdateMemberRequest request) {
-        Member member = memberService.update(id, request.name);
+        memberService.update(id, request.name);
+        Member member = memberService.findOne(id);
         return new UpdateMemberResponse(member.getId(), member.getName());
     }
-
+    
     @Data
     @AllArgsConstructor
     static class UpdateMemberResponse {
