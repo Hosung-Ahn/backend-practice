@@ -22,7 +22,7 @@ public class MemberService {
     public Long join(Member member) {
         validateDuplicateMember(member); // 중복 회원 검증
         memberRepository.save(member);
-//        member 가 db에 들어가지 않아도 @Id @GenerateValue 에 의해 pk 값이 보장된다.
+//        member 가 db에 들어가야 @Id @GenerateValue 에 의해 pk 값이 보장된다.
         return member.getId();
     }
     private void validateDuplicateMember(Member member) {
@@ -41,5 +41,12 @@ public class MemberService {
     @Transactional(readOnly = true) // 읽기 전용 transaction 일 때 최적화함
     public Member findOne(Long memberId) {
         return memberRepository.findOne(memberId);
+    }
+
+    @Transactional
+    public Member update(Long id, String newName) {
+        Member member = memberRepository.findOne(id);
+        member.setName(newName);
+        return member;
     }
 }
