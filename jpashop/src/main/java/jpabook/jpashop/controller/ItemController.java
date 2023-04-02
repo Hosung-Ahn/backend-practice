@@ -32,7 +32,7 @@ public class ItemController {
         book.setAuthor(form.getAuthor());
         book.setIsbn(form.getIsbn());
 
-        itemService.updateItem(form.getId(), book);
+        itemService.saveItem(book);
         return "redirect:/items";
     }
 
