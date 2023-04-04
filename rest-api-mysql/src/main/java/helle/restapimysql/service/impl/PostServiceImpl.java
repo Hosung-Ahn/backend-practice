@@ -1,6 +1,7 @@
 package helle.restapimysql.service.impl;
 
 import helle.restapimysql.domain.Post;
+import helle.restapimysql.exception.ResourceNotFoundException;
 import helle.restapimysql.payload.PostDto;
 import helle.restapimysql.repository.PostRepository;
 import helle.restapimysql.service.PostService;
@@ -47,5 +48,11 @@ public class PostServiceImpl implements PostService {
         return postDto;
     }
 
+    @Override
+    public PostDto getPostById(Long id) {
+        Post post = postRepository.findById(id).
+                orElseThrow(() -> new ResourceNotFoundException("post", "post_id", id.toString()));
+        return mapToDto(post);
 
+    }
 }
