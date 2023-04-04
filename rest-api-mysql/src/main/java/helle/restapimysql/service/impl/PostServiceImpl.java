@@ -7,6 +7,8 @@ import helle.restapimysql.service.PostService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class PostServiceImpl implements PostService {
@@ -15,17 +17,35 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public PostDto createPost(PostDto postDto) {
+        Post post = mapToEntity(postDto);
+
+        Post newPost = postRepository.save(post);
+
+        PostDto postResponse = mapToDto(newPost);
+        return postResponse;
+    }
+
+    private static Post mapToEntity(PostDto postDto) {
         Post post = new Post();
         post.setTitle(postDto.getTitle());
         post.setContent(postDto.getContent());
         post.setDescription(postDto.getDescription());
-
-        Post newPost = postRepository.save(post);
-
-        PostDto postResponse = new PostDto();
-        postResponse.setTitle(post.getTitle());
-        postResponse.setContent(post.getContent());
-        postResponse.setDescription(post.getDescription());
-        return postResponse;
+        return post;
     }
+
+    @Override
+    public List<PostDto> getAllPosts() {
+        return postRepository.findAll().stream().map(m -> mapToDto(m)).toList();
+    }
+
+    private PostDto mapToDto(Post post) {
+        PostDto postDto = new PostDto();
+        postDto.setId(post.getId());
+        postDto.setTitle(post.getTitle());
+        postDto.setDescription(post.getDescription());
+        postDto.setContent(post.getContent());
+        return postDto;
+    }
+
+
 }
