@@ -7,6 +7,7 @@ import helle.restapimysql.repository.PostRepository;
 import helle.restapimysql.service.PostService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -53,6 +54,22 @@ public class PostServiceImpl implements PostService {
         Post post = postRepository.findById(id).
                 orElseThrow(() -> new ResourceNotFoundException("post", "post_id", id.toString()));
         return mapToDto(post);
+    }
 
+    @Override
+    @Transactional
+    public PostDto updatePost(PostDto postDto, Long id) {
+        Post post = postRepository.findById(id).
+                orElseThrow(() -> new ResourceNotFoundException("post", "post_id", id.toString()));
+
+        post.setDescription(postDto.getDescription());
+        post.setTitle(postDto.getTitle());
+        post.setContent(postDto.getContent());
+        return mapToDto(post);
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        postRepository.deleteById(id);
     }
 }
