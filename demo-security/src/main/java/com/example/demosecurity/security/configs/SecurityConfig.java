@@ -23,38 +23,15 @@ public class SecurityConfig {
         //모든 요청에 인증여부를 검사한다.
         http
                 .authorizeRequests()
-                .anyRequest().authenticated();
-        http
+                .anyRequest().authenticated()
+
+
+        .and()
                 .formLogin()
-                .loginPage("/login")
-                .defaultSuccessUrl("/")
-                .failureUrl("/login")
-                .usernameParameter("userId")
-                .passwordParameter("pw")
-                .loginProcessingUrl("/login_proc")
-                .successHandler(new AuthenticationSuccessHandler() {
-                    @Override
-                    public void onAuthenticationSuccess(
-                            HttpServletRequest request,
-                            HttpServletResponse response,
-                            Authentication authentication)
-                            throws IOException, ServletException {
-                        System.out.println("authentication = " + authentication.getName());
-                        response.sendRedirect("/");
-                    }
-                })
-                .failureHandler(new AuthenticationFailureHandler() {
-                    @Override
-                    public void onAuthenticationFailure(HttpServletRequest request,
-                                                        HttpServletResponse response,
-                                                        AuthenticationException exception)
-                            throws IOException, ServletException {
-                        System.out.println("exception = " + exception.getMessage());
-                        response.sendRedirect("/login");
-                    }
-                })
-                .permitAll()
+
         ;
+
+
         return http.build();
     }
 }
