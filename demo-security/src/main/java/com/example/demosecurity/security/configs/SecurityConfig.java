@@ -56,7 +56,7 @@ public class SecurityConfig {
         //모든 요청에 인증여부를 검사한다.
         http
                 .authorizeRequests()
-                .antMatchers("/").permitAll()
+                .antMatchers("/", "/register").permitAll()
                 .antMatchers("/mypage").hasRole("USER")
                 .antMatchers("/messages").hasRole("MANAGER")
                 .antMatchers("/config").hasRole("ADMIN")
