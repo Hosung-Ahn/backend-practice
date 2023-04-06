@@ -33,6 +33,7 @@ public class UserController {
         account.setPassword(encoder.encode(accountDto.getPassword()));
         account.setAge(accountDto.getAge());
         account.setEmail(accountDto.getEmail());
+        account.setRole(accountDto.getRole());
 
         userService.createUser(account);
 
