@@ -5,7 +5,9 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -22,6 +24,19 @@ public class Member {
     @Embedded
     private Address address;
 
+    @Enumerated(EnumType.STRING)
+    private MemberType memberType;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private LocalDateTime createdDate;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private LocalDateTime lastModifiedDate;
+
+    @Lob
+    private String description;
+
     @OneToMany(mappedBy = "member")
     private List<Order> orders = new ArrayList<>(); // 주문과 연관관계
+
 }
