@@ -3,10 +3,7 @@ package com.example.demosecurity.domain;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import java.util.Collection;
 
 @Entity
@@ -14,6 +11,7 @@ import java.util.Collection;
 public class Account {
     @Id @GeneratedValue
     private Long id;
+    @Column(unique = true)
     private String username;
     private String password;
     private String email;
