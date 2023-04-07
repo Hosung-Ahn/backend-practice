@@ -34,7 +34,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         // authentication 에 있는 details 를 가져옵니다.
         FormWebAuthenticationDetails details = (FormWebAuthenticationDetails) authentication.getDetails();
         String secretKey = details.getSecretKey();
-        if (secretKey == null || "secret".equals(secretKey)) {
+        if (secretKey == null || !"secret".equals(secretKey)) {
             throw new InsufficientAuthenticationException("secret key 가 일치하지 않습니다.");
         }
 

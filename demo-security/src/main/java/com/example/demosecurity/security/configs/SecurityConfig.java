@@ -47,6 +47,8 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http.authenticationProvider(new CustomAuthenticationProvider(userDetailsService, passwordEncoder()));
+
         http
                 .authorizeRequests()
                 .antMatchers("/", "/register").permitAll()
@@ -65,7 +67,7 @@ public class SecurityConfig {
         ;
 
 //        return http.userDetailsService(userDetailsService).build();
-        return http.authenticationProvider(new CustomAuthenticationProvider(userDetailsService, passwordEncoder())).build();
+        return http.build();
     }
 
     @Bean
