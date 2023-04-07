@@ -7,7 +7,6 @@ import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -15,7 +14,7 @@ import java.util.List;
 @SequenceGenerator(
         name = "MEMBER_SEQ_GENERATOR",
         sequenceName = "MEMBER_SEQ",
-        initialValue = 1, allocationSize = 50
+        initialValue = 1, allocationSize = 1
 )
 public class Member {
 
@@ -32,11 +31,9 @@ public class Member {
     @Enumerated(EnumType.STRING)
     private MemberType memberType;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createdDate;
+    private LocalDateTime createdDate;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date lastModifiedDate;
+    private LocalDateTime lastModifiedDate;
 
     @Lob
     private String description;

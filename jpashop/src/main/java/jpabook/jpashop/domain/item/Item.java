@@ -17,7 +17,7 @@ import java.util.List;
 @SequenceGenerator(
         name = "ITEM_SEQ_GENERATOR",
         sequenceName = "ITEM_SEQ",
-        initialValue = 1, allocationSize = 50
+        initialValue = 1, allocationSize = 1
 )
 public abstract class Item {
     @Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ITEM_SEQ_GENERATOR")

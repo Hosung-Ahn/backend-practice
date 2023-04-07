@@ -54,7 +54,12 @@ public class SecurityConfig {
 
                 .and()
                 .formLogin()
+                .loginPage("/login")
+                .loginProcessingUrl("/login_proc")
+                .defaultSuccessUrl("/")
+                .permitAll()
         ;
+
 //        return http.userDetailsService(userDetailsService).build();
         return http.authenticationProvider(new CustomAuthenticationProvider(userDetailsService, passwordEncoder())).build();
     }

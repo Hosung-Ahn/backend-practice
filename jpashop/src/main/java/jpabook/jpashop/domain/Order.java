@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+// table 명이 order 이면 예약어인 경우가 있기 때문에 orders 로 바뀐다.
 @Table(name = "orders")
 @Getter @Setter
 // public 생성자를 막아주는 역할

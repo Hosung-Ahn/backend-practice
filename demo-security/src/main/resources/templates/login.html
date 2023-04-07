@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head th:replace="layout/header::userHead"></head>
+<body>
+<div th:replace="layout/top::header"></div>
+<div class="container">
+    <div class="row justify-content-center vh-100">
+        <div class="col-md-6">
+            <div class="text-center mb-4">
+                <h1>Login</h1>
+                <p>Please enter your username and password</p>
+            </div>
+            <form th:action="@{/login_proc}" class="form-signin" method="post" onsubmit="event.preventDefault();">
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" name="username" placeholder="Username" required="required" autofocus="autofocus" id="username">
+                    <label for="username">Username</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="password" class="form-control" name="password" placeholder="Password" required="required" id="password">
+                    <label for="password">Password</label>
+                </div>
+                <div class="form-check mb-3">
+                    <input class="form-check-input" type="checkbox" name="remember-me" id="remember-me">
+                    <label class="form-check-label" for="remember-me">Remember me</label>
+                </div>
+                <button type="submit" class="btn btn-primary btn-lg btn-block">Login</button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
