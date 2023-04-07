@@ -27,7 +27,5 @@ public class LoginController {
         }
 
         return "redirect:/";
-
-        return "/";
     }
 }
