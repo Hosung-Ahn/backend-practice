@@ -12,9 +12,14 @@ import java.util.List;
 
 @Entity
 @Getter @Setter
+@SequenceGenerator(
+        name = "MEMBER_SEQ_GENERATOR",
+        sequenceName = "MEMBER_SEQ",
+        initialValue = 1, allocationSize = 50
+)
 public class Member {
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "MEMBER_SEQ_GENERATOR")
     @Column(name = "member_id")
     private Long id;
 
@@ -28,10 +33,10 @@ public class Member {
     private MemberType memberType;
 
     @Temporal(TemporalType.TIMESTAMP)
-    private LocalDateTime createdDate;
+    private Date createdDate;
 
     @Temporal(TemporalType.TIMESTAMP)
-    private LocalDateTime lastModifiedDate;
+    private Date lastModifiedDate;
 
     @Lob
     private String description;

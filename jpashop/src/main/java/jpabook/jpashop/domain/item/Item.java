@@ -14,8 +14,13 @@ import java.util.List;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "dtype")
 @Getter @Setter
+@SequenceGenerator(
+        name = "ITEM_SEQ_GENERATOR",
+        sequenceName = "ITEM_SEQ",
+        initialValue = 1, allocationSize = 50
+)
 public abstract class Item {
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ITEM_SEQ_GENERATOR")
     @Column(name = "item_id")
     private Long id;
 

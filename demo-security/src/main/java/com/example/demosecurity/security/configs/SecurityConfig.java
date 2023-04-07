@@ -44,7 +44,6 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        //모든 요청에 인증여부를 검사한다.
         http
                 .authorizeRequests()
                 .antMatchers("/", "/register").permitAll()
