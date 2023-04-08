@@ -14,7 +14,7 @@ public class CustomAuthenticationFailureHandler extends SimpleUrlAuthenticationF
         String errorMessage = exception.getMessage();
 
         setDefaultFailureUrl("/login?error=true&exception=" + errorMessage);
-        
+
         super.onAuthenticationFailure(request, response, exception);
     }
 }

@@ -11,6 +11,11 @@
                 <h1>Login</h1>
                 <p>Please enter your username and password</p>
             </div>
+            <div th:if="${param.error}">
+                <div class="alert alert-danger" role="alert">
+                    <span th:text="${param.exception}"></span>
+                </div>
+            </div>
             <form th:action="@{/login_proc}" class="form-signin" method="post" onsubmit="preventDefault();">
                 <input type="hidden" th:value="secret" value="secret" name="secret_key">
                 <div class="form-floating mb-3">
