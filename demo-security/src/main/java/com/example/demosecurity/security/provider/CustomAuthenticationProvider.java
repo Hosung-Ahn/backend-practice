@@ -30,6 +30,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         AccountContext accountContext = (AccountContext)userDetailsService.loadUserByUsername(username);
 
         if (!encoder.matches(password, accountContext.getAccount().getPassword())) {
+            log.error("비밀번호가 일치하지 않습니다.");
             throw new BadCredentialsException("비밀번호가 일치하지 않습니다.");
         }
 
@@ -37,7 +38,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         FormWebAuthenticationDetails details = (FormWebAuthenticationDetails) authentication.getDetails();
         String secretKey = details.getSecretKey();
         if (secretKey == null || !"secret".equals(secretKey)) {
-            log.debug("secret key 가 일치하지 않습니다.");
+            log.error("secret key 가 일치하지 않습니다.");
             throw new InsufficientAuthenticationException("secret key 가 일치하지 않습니다.");
         }
 
