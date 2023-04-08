@@ -69,7 +69,7 @@ public class SecurityConfig {
                 .loginProcessingUrl("/login_proc")
                 .authenticationDetailsSource(formAuthenticationDetailsSource)
                 .defaultSuccessUrl("/")
-//                .successHandler(customAuthenticationHandler)
+                .successHandler(customAuthenticationHandler)
                 .permitAll()
         ;
 

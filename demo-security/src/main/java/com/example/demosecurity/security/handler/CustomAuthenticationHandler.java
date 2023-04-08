@@ -1,5 +1,6 @@
 package com.example.demosecurity.security.handler;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Component
+@Slf4j
 public class CustomAuthenticationHandler extends SimpleUrlAuthenticationSuccessHandler {
 
     private RequestCache requestCache = new HttpSessionRequestCache();
@@ -24,12 +26,13 @@ public class CustomAuthenticationHandler extends SimpleUrlAuthenticationSuccessH
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
 
         setDefaultTargetUrl("/");
-        // 이전 요청 정보를 가져온다.
+        // 이전 요청 정보를 가져온다.ㄷ
         SavedRequest savedRequest = requestCache.getRequest(request, response);
 
         // 로그인 성공 후 이전 페이지로 이동
         if (savedRequest != null) {
             String lastUrl = savedRequest.getRedirectUrl();
+            log.info("last url : {} 로 이동되었습니다.", lastUrl);
             redirectStrategy.sendRedirect(request, response, lastUrl);
         } else {
             redirectStrategy.sendRedirect(request, response, getDefaultTargetUrl());
