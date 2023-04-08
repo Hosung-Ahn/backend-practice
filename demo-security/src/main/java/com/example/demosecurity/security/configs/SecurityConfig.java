@@ -79,6 +79,7 @@ public class SecurityConfig {
 
                 .and()
                 .exceptionHandling()
+                .accessDeniedHandler(accessDeniedHandler())
         ;
 
 //        return http.userDetailsService(userDetailsService).build();
