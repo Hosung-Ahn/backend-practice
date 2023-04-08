@@ -1,5 +1,6 @@
 package com.example.demosecurity.controller.login;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @Controller
+@Slf4j
 public class LoginController {
     @GetMapping("/login")
     public String login(@RequestParam(value = "error", required = false) String error,
@@ -19,6 +21,7 @@ public class LoginController {
                         Model model) {
         model.addAttribute("error", error);
         model.addAttribute("exception", exception);
+        log.info("error : {}, exception : {}", error, exception);
         return "login";
     }
 

@@ -13,6 +13,9 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+
 @RequiredArgsConstructor
 @Slf4j
 public class CustomAuthenticationProvider implements AuthenticationProvider {
@@ -30,7 +33,8 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
         if (!encoder.matches(password, accountContext.getAccount().getPassword())) {
             log.error("비밀번호가 일치하지 않습니다.");
-            throw new BadCredentialsException("비밀번호가 일치하지 않습니다.");
+            throw new BadCredentialsException(URLEncoder.encode("비밀번호가 일치하지 않습니다.", StandardCharsets.UTF_8));
+
         }
 
         // authentication 에 있는 details 를 가져옵니다.
@@ -38,7 +42,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         String secretKey = details.getSecretKey();
         if (secretKey == null || !"secret".equals(secretKey)) {
             log.error("secret key 가 일치하지 않습니다.");
-            throw new InsufficientAuthenticationException("secret key 가 일치하지 않습니다.");
+            throw new InsufficientAuthenticationException(URLEncoder.encode("secret key 가 일치하지 않습니다.", StandardCharsets.UTF_8));
         }
 
 

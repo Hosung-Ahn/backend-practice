@@ -1,6 +1,7 @@
 package com.example.demosecurity.security.configs;
 
 import com.example.demosecurity.security.common.FormAuthenticationDetailsSource;
+import com.example.demosecurity.security.handler.CustomAuthenticationFailureHandler;
 import com.example.demosecurity.security.handler.CustomAuthenticationSuccessHandler;
 import com.example.demosecurity.security.provider.CustomAuthenticationProvider;
 import lombok.RequiredArgsConstructor;
@@ -48,6 +49,7 @@ public class SecurityConfig {
     private final FormAuthenticationDetailsSource formAuthenticationDetailsSource;
 
     private final CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;
+    private final CustomAuthenticationFailureHandler customAuthenticationFailureHandler;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -57,7 +59,7 @@ public class SecurityConfig {
 
         http
                 .authorizeRequests()
-                .antMatchers("/", "/register").permitAll()
+                .antMatchers("/", "/register", "/login", "/login?error*").permitAll()
                 .antMatchers("/mypage").hasRole("USER")
                 .antMatchers("/messages").hasRole("MANAGER")
                 .antMatchers("/config").hasRole("ADMIN")
@@ -70,6 +72,7 @@ public class SecurityConfig {
                 .authenticationDetailsSource(formAuthenticationDetailsSource)
                 .defaultSuccessUrl("/")
                 .successHandler(customAuthenticationSuccessHandler)
+                .failureHandler(customAuthenticationFailureHandler)
                 .permitAll()
         ;
 

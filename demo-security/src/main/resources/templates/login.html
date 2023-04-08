@@ -11,7 +11,7 @@
                 <h1>Login</h1>
                 <p>Please enter your username and password</p>
             </div>
-            <div th:if="${param.error}">
+            <div th:if="${param.error}" class="form-group">
                 <div class="alert alert-danger" role="alert">
                     <span th:text="${param.exception}"></span>
                 </div>

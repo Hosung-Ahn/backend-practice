@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.net.URLEncoder;
 import java.util.List;
 
 @Service
@@ -24,8 +25,8 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Account account = userRepository.findByUsername(username)
                 .orElseThrow(() -> {
-                    log.error("User Not Found with username: " + username);
-                    return new UsernameNotFoundException("User Not Found with username: " + username);
+                    log.error(username + " 사용자를 찾을 수 없습니다.");
+                    return new UsernameNotFoundException(URLEncoder.encode(username + " 사용자를 찾을 수 없습니다."));
                 });
 
         // 권환을 한개로 가정햇지만, 본래 권한은 복수일 수 있습니다.
