@@ -3,6 +3,7 @@ package com.example.demosecurity.security.provider;
 import com.example.demosecurity.security.common.FormWebAuthenticationDetails;
 import com.example.demosecurity.security.service.AccountContext;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.InsufficientAuthenticationException;
@@ -14,6 +15,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @RequiredArgsConstructor
+@Slf4j
 public class CustomAuthenticationProvider implements AuthenticationProvider {
 
     private final UserDetailsService userDetailsService;
@@ -35,6 +37,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         FormWebAuthenticationDetails details = (FormWebAuthenticationDetails) authentication.getDetails();
         String secretKey = details.getSecretKey();
         if (secretKey == null || !"secret".equals(secretKey)) {
+            log.debug("secret key 가 일치하지 않습니다.");
             throw new InsufficientAuthenticationException("secret key 가 일치하지 않습니다.");
         }
 
