@@ -1,6 +1,7 @@
 package com.example.demosecurity.security.configs;
 
 import com.example.demosecurity.security.common.FormAuthenticationDetailsSource;
+import com.example.demosecurity.security.handler.CustomAccessDeniedHandler;
 import com.example.demosecurity.security.handler.CustomAuthenticationFailureHandler;
 import com.example.demosecurity.security.handler.CustomAuthenticationSuccessHandler;
 import com.example.demosecurity.security.provider.CustomAuthenticationProvider;
@@ -16,6 +17,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.AccessDeniedHandler;
 
 
 @Configurable
@@ -74,10 +76,20 @@ public class SecurityConfig {
                 .successHandler(customAuthenticationSuccessHandler)
                 .failureHandler(customAuthenticationFailureHandler)
                 .permitAll()
+
+                .and()
+                .exceptionHandling()
         ;
 
 //        return http.userDetailsService(userDetailsService).build();
         return http.build();
+    }
+
+    @Bean
+    public AccessDeniedHandler accessDeniedHandler() {
+        CustomAccessDeniedHandler accessDeniedHandler = new CustomAccessDeniedHandler();
+        accessDeniedHandler.setErrorPage("/denied");
+        return accessDeniedHandler;
     }
 
     @Bean
