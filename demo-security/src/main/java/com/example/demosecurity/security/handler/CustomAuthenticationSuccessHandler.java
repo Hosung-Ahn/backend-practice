@@ -17,7 +17,7 @@ import java.io.IOException;
 
 @Component
 @Slf4j
-public class CustomAuthenticationHandler extends SimpleUrlAuthenticationSuccessHandler {
+public class CustomAuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 
     private RequestCache requestCache = new HttpSessionRequestCache();
     private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();

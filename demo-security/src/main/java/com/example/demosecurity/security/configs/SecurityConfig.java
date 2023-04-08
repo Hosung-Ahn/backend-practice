@@ -1,7 +1,7 @@
 package com.example.demosecurity.security.configs;
 
 import com.example.demosecurity.security.common.FormAuthenticationDetailsSource;
-import com.example.demosecurity.security.handler.CustomAuthenticationHandler;
+import com.example.demosecurity.security.handler.CustomAuthenticationSuccessHandler;
 import com.example.demosecurity.security.provider.CustomAuthenticationProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Configurable;
@@ -47,7 +47,7 @@ public class SecurityConfig {
 
     private final FormAuthenticationDetailsSource formAuthenticationDetailsSource;
 
-    private final CustomAuthenticationHandler customAuthenticationHandler;
+    private final CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -69,7 +69,7 @@ public class SecurityConfig {
                 .loginProcessingUrl("/login_proc")
                 .authenticationDetailsSource(formAuthenticationDetailsSource)
                 .defaultSuccessUrl("/")
-                .successHandler(customAuthenticationHandler)
+                .successHandler(customAuthenticationSuccessHandler)
                 .permitAll()
         ;
 
