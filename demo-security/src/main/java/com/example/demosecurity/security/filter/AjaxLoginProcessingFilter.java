@@ -2,6 +2,7 @@ package com.example.demosecurity.security.filter;
 
 import antlr.StringUtils;
 import com.example.demosecurity.domain.AccountDto;
+import com.example.demosecurity.security.token.AjaxAuthenticationToken;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
@@ -35,7 +36,11 @@ public class AjaxLoginProcessingFilter extends AbstractAuthenticationProcessingF
             throw new IllegalArgumentException("Username or Password is empty");
         }
 
-        return null;
+        // AjaxAuthenticationToken 생성
+        AjaxAuthenticationToken ajaxAuthenticationToken = new AjaxAuthenticationToken(accountDto.getUsername(), accountDto.getPassword());
+
+        // AuthenticationManager로 AjaxAuthenticationToken을 넘겨서 인증을 진행한다.
+        return getAuthenticationManager().authenticate(ajaxAuthenticationToken);
     }
 
     private boolean isAjax(HttpServletRequest request) {
