@@ -26,7 +26,7 @@ public class CustomAuthenticationSuccessHandler extends SimpleUrlAuthenticationS
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
 
         setDefaultTargetUrl("/");
-        // 이전 요청 정보를 가져온다.ㄷ
+        // 이전 요청 정보를 가져온다.
         SavedRequest savedRequest = requestCache.getRequest(request, response);
 
         // 로그인 성공 후 이전 페이지로 이동
