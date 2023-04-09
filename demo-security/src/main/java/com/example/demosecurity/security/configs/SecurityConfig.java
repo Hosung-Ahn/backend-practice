@@ -1,6 +1,7 @@
 package com.example.demosecurity.security.configs;
 
 import com.example.demosecurity.security.common.FormAuthenticationDetailsSource;
+import com.example.demosecurity.security.filter.AjaxLoginProcessingFilter;
 import com.example.demosecurity.security.handler.CustomAccessDeniedHandler;
 import com.example.demosecurity.security.handler.CustomAuthenticationFailureHandler;
 import com.example.demosecurity.security.handler.CustomAuthenticationSuccessHandler;
@@ -18,6 +19,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 
 @Configurable
@@ -80,7 +82,9 @@ public class SecurityConfig {
                 .and()
                 .exceptionHandling()
                 .accessDeniedHandler(accessDeniedHandler())
-        ;
+
+                .and()
+                .addFilterBefore(ajaxLoginProcessingFilter(), UsernamePasswordAuthenticationFilter.class);
 
 //        return http.userDetailsService(userDetailsService).build();
         return http.build();
@@ -104,5 +108,10 @@ public class SecurityConfig {
         return (web) -> {
             web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations());
         };
+    }
+
+    @Bean
+    public AjaxLoginProcessingFilter ajaxLoginProcessingFilter() {
+        return new AjaxLoginProcessingFilter();
     }
 }
