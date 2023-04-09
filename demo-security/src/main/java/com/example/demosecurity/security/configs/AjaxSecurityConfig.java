@@ -1,6 +1,8 @@
 package com.example.demosecurity.security.configs;
 
 import com.example.demosecurity.security.filter.AjaxLoginProcessingFilter;
+import com.example.demosecurity.security.handler.AjaxAuthenticationFailureHandler;
+import com.example.demosecurity.security.handler.AjaxAuthenticationSuccessHandler;
 import com.example.demosecurity.security.provider.AjaxAuthenticationProvider;
 import com.example.demosecurity.security.provider.CustomAuthenticationProvider;
 import lombok.RequiredArgsConstructor;
@@ -24,10 +26,11 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class AjaxSecurityConfig {
 
     private final AuthenticationConfiguration authenticationConfiguration;
-
     private final UserDetailsService userDetailsService;
-
     private final PasswordEncoder passwordEncoder;
+    private final AjaxAuthenticationSuccessHandler ajaxAuthenticationSuccessHandler;
+    private final AjaxAuthenticationFailureHandler ajaxAuthenticationFailureHandler;
+
 
 
     @Bean
@@ -40,10 +43,11 @@ public class AjaxSecurityConfig {
                 .anyRequest().authenticated()
 
                 .and()
-                .addFilterBefore(ajaxLoginProcessingFilter(), UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(ajaxLoginProcessingFilter(), UsernamePasswordAuthenticationFilter.class)
+        ;
+
 
         http.csrf().disable();
-
 
         return http.build();
     }
@@ -62,6 +66,8 @@ public class AjaxSecurityConfig {
     public AjaxLoginProcessingFilter ajaxLoginProcessingFilter() throws Exception {
         AjaxLoginProcessingFilter ajaxLoginProcessingFilter = new AjaxLoginProcessingFilter();
         ajaxLoginProcessingFilter.setAuthenticationManager(authenticationManager(authenticationConfiguration));
+        ajaxLoginProcessingFilter.setAuthenticationSuccessHandler(ajaxAuthenticationSuccessHandler);
+        ajaxLoginProcessingFilter.setAuthenticationFailureHandler(ajaxAuthenticationFailureHandler);
         return ajaxLoginProcessingFilter;
     }
 

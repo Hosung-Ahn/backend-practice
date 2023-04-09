@@ -39,7 +39,7 @@ public class AjaxAuthenticationProvider implements AuthenticationProvider {
 
         AjaxAuthenticationToken authenticationToken =
                         new AjaxAuthenticationToken(accountContext.getAccount(),
-                        null, accountContext.getAuthorities().toString());
+                        null, accountContext.getAuthorities());
 
         return authenticationToken;
     }
