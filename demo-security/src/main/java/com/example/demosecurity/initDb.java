@@ -27,11 +27,17 @@ public class initDb {
         private final UserService userService;
         private final PasswordEncoder encoder;
         public void dbInit() {
-            Account account = new Account();
-            account.setUsername("user");
-            account.setPassword(encoder.encode("1111"));
-            account.setRole("ROLE_USER");
-            userService.createUser(account);
+            Account user = new Account();
+            user.setUsername("user");
+            user.setPassword(encoder.encode("1111"));
+            user.setRole("ROLE_USER");
+            userService.createUser(user);
+
+            Account manager = new Account();
+            manager.setUsername("manager");
+            manager.setPassword(encoder.encode("1111"));
+            manager.setRole("ROLE_MANAGER");
+            userService.createUser(manager);
         }
     }
 }

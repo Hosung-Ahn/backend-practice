@@ -1,6 +1,8 @@
 package com.example.demosecurity.security.configs;
 
+import com.example.demosecurity.security.common.AjaxLoginAuthenticationEntryPoint;
 import com.example.demosecurity.security.filter.AjaxLoginProcessingFilter;
+import com.example.demosecurity.security.handler.AjaxAccessDeniedHandler;
 import com.example.demosecurity.security.handler.AjaxAuthenticationFailureHandler;
 import com.example.demosecurity.security.handler.AjaxAuthenticationSuccessHandler;
 import com.example.demosecurity.security.provider.AjaxAuthenticationProvider;
@@ -31,6 +33,9 @@ public class AjaxSecurityConfig {
     private final AjaxAuthenticationSuccessHandler ajaxAuthenticationSuccessHandler;
     private final AjaxAuthenticationFailureHandler ajaxAuthenticationFailureHandler;
 
+    private final AjaxLoginAuthenticationEntryPoint ajaxLoginAuthenticationEntryPoint;
+    private final AjaxAccessDeniedHandler ajaxAccessDeniedHandler;
+
 
 
     @Bean
@@ -40,10 +45,16 @@ public class AjaxSecurityConfig {
         http
                 .antMatcher("/api/**")
                 .authorizeRequests()
+                .antMatchers("/api/messages").hasRole("MANAGER")
                 .anyRequest().authenticated()
 
                 .and()
-                .addFilterBefore(ajaxLoginProcessingFilter(), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(ajaxLoginProcessingFilter(), UsernamePasswordAuthenticationFilter.class);
+
+        http
+                .exceptionHandling()
+                .authenticationEntryPoint(ajaxLoginAuthenticationEntryPoint)
+                .accessDeniedHandler(ajaxAccessDeniedHandler)
         ;
 
 
