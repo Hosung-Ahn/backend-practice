@@ -2,6 +2,7 @@ package jpabook.jpashop.domain;
 
 import jpabook.jpashop.repository.Test1Repository;
 import jpabook.jpashop.repository.Test2Repository;
+import org.hibernate.Hibernate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,9 +40,10 @@ class Test1Test {
     @Test
     @Transactional
     void test1() {
-        Test1 test1 = test1Repository.findByName("test1");
-        System.out.println("test1.getTest2().getClass() = " + test1.getTest2().getClass());
-        System.out.println("test1.getTest2() = " + test1.getTest2());
+        Test1 test1 = test1Repository.findByName("test1").get();
+        System.out.println("test2 is isInitialized = " + Hibernate.isInitialized(test1.getTest2())); // Test2가 초기화되었는지 출력
+        System.out.println("test1 = " + test1.getTest2().getName());
+        System.out.println("test2 is isInitialized = " + Hibernate.isInitialized(test1.getTest2())); // Test
     }
 
     private String getName(Test1 test1) {
