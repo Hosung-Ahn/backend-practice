@@ -42,7 +42,7 @@ class Test1Test {
     void test1() {
         Test1 test1 = test1Repository.findByName("test1").get();
         System.out.println("test2 is isInitialized = " + Hibernate.isInitialized(test1.getTest2())); // Test2가 초기화되었는지 출력
-        System.out.println("test1 = " + test1.getTest2().getName());
+        getName(test1);
         System.out.println("test2 is isInitialized = " + Hibernate.isInitialized(test1.getTest2())); // Test
     }
 
