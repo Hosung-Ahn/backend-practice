@@ -3,8 +3,6 @@ package hello.advanced.app.trace.helloTrace;
 import hello.advanced.app.trace.TraceStatus;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class HelloTraceV1Test {
     @Test
     void begin_end() {
