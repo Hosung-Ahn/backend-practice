@@ -1,6 +1,7 @@
 package hello.advanced.app.trace.startegy;
 
 import hello.advanced.app.trace.startegy.code.strategy.ContextV1;
+import hello.advanced.app.trace.startegy.code.strategy.Strategy;
 import hello.advanced.app.trace.startegy.code.strategy.StrategyLogic1;
 import hello.advanced.app.trace.startegy.code.strategy.StrategyLogic2;
 import lombok.extern.slf4j.Slf4j;
@@ -25,6 +26,27 @@ public class ContextV1Test {
         contextV12.execute();
     }
 
+    @Test
+    void strategyV2() {
+        Strategy logic1 = new Strategy() {
+            @Override
+            public void call() {
+                log.info("비지니스 로직1 실행");
+            }
+        };
+        ContextV1 contextV1 = new ContextV1(logic1);
+        contextV1.execute();
+
+        Strategy logic2 = new Strategy() {
+            @Override
+            public void call() {
+                log.info("비지니스 로직2 실행");
+            }
+        };
+        ContextV1 contextV2 = new ContextV1(logic2);
+        contextV2.execute();
+    }
+
     private void logic1() {
         long startTime = System.currentTimeMillis();
         // 비지니스 로직 실행
@@ -42,5 +64,14 @@ public class ContextV1Test {
         long endTime = System.currentTimeMillis();
         long resultTime = endTime - startTime;
         log.info("resultTime={}", resultTime);
+    }
+
+    @Test
+    public void strategyV3() {
+        ContextV1 contextV1 = new ContextV1(() -> log.info("비지니스 로직1 실행"));
+        contextV1.execute();
+
+        ContextV1 contextV2 = new ContextV1(() -> log.info("비지니스 로직2 실행"));
+        contextV2.execute();
     }
 }
