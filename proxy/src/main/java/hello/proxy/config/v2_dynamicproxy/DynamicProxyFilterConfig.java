@@ -13,11 +13,11 @@ public class DynamicProxyFilterConfig {
     private static final String[] PATTERNS = {"request*", "order*", "save*"};
 
     @Bean
-    public OrderControllerV1 orderControllerV1(LogTrace logTrace) {
-        OrderControllerV1 orderController = new OrderControllerV1Impl(orderServiceV1(logTrace));
+    public OrderControllerV2 orderControllerV1(LogTrace logTrace) {
+        OrderControllerV2 orderController = new OrderControllerV1Impl(orderServiceV1(logTrace));
         LogTraceFilterHandler handler = new LogTraceFilterHandler(orderController, logTrace, PATTERNS);
-        return (OrderControllerV1) Proxy.newProxyInstance(
-                OrderControllerV1.class.getClassLoader(), new Class[]{OrderControllerV1.class}, handler
+        return (OrderControllerV2) Proxy.newProxyInstance(
+                OrderControllerV2.class.getClassLoader(), new Class[]{OrderControllerV2.class}, handler
         );
     }
 

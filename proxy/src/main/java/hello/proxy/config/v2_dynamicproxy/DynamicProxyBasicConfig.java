@@ -11,11 +11,11 @@ import java.lang.reflect.Proxy;
 @Configuration
 public class DynamicProxyBasicConfig {
     @Bean
-    public OrderControllerV1 orderControllerV1(LogTrace logTrace) {
-        OrderControllerV1 orderController = new OrderControllerV1Impl(orderServiceV1(logTrace));
+    public OrderControllerV2 orderControllerV1(LogTrace logTrace) {
+        OrderControllerV2 orderController = new OrderControllerV1Impl(orderServiceV1(logTrace));
         LogTraceBasicHandler handler = new LogTraceBasicHandler(orderController, logTrace);
-        return (OrderControllerV1) Proxy.newProxyInstance(
-                OrderControllerV1.class.getClassLoader(), new Class[]{OrderControllerV1.class}, handler
+        return (OrderControllerV2) Proxy.newProxyInstance(
+                OrderControllerV2.class.getClassLoader(), new Class[]{OrderControllerV2.class}, handler
         );
     }
 
