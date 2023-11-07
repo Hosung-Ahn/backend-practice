@@ -33,6 +33,7 @@ public class ProxyFactoryConfigV2 {
         return (OrderServiceV2) proxyFactory.getProxy();
     }
 
+
     @Bean
     public OrderControllerV2 orderControllerV2(LogTrace logTrace) {
         OrderControllerV2 orderControllerV2 = new OrderControllerV2(orderServiceV2(logTrace));
